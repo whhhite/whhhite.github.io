@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.1k字</span>
+            <span class="post-count">1.2k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -135,12 +135,17 @@
 <p>转换成函数之后可以看到</p>
 <p><img src="/2020/04/12/check/7.png" alt></p>
 <p>再通过ida_python代码patch一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import idautils</span><br><span class="line"></span><br><span class="line">import idc</span><br><span class="line"></span><br><span class="line">start&#x3D;0x4051FC</span><br><span class="line"></span><br><span class="line">end&#x3D;0x4051FC+337</span><br><span class="line"></span><br><span class="line">for i in range(end-start+1):</span><br><span class="line"></span><br><span class="line">​    op&#x3D;idc.GetOpnd(start+i,0)</span><br><span class="line"></span><br><span class="line">​    if(len(op)&lt;2):</span><br><span class="line"></span><br><span class="line">​        a&#x3D;int(op)</span><br><span class="line"></span><br><span class="line">​    else:</span><br><span class="line"></span><br><span class="line">​        s&#x3D;&quot;0x&quot;+op[:-1]</span><br><span class="line"></span><br><span class="line">​        a&#x3D;int(s,16)</span><br><span class="line"></span><br><span class="line">​    a&#x3D;a^0x72</span><br><span class="line"></span><br><span class="line">​    PatchByte(start+i,a)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> idautils</span><br><span class="line"><span class="keyword">import</span> idc</span><br><span class="line">start=<span class="number">0x4051FC</span></span><br><span class="line">end=<span class="number">0x4051FC</span>+<span class="number">337</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(end-start+<span class="number">1</span>):</span><br><span class="line">​    op=idc.GetOpnd(start+i,<span class="number">0</span>)</span><br><span class="line">​    <span class="keyword">if</span>(len(op)&lt;<span class="number">2</span>):</span><br><span class="line">​        a=int(op)</span><br><span class="line">​    <span class="keyword">else</span>:</span><br><span class="line">​        s=<span class="string">"0x"</span>+op[:<span class="number">-1</span>]</span><br><span class="line">​        a=int(s,<span class="number">16</span>)</span><br><span class="line">​    a=a^<span class="number">0x72</span></span><br><span class="line">​    PatchByte(start+i,a)</span><br></pre></td></tr></table></figure>
 
 <p>获得</p>
 <p><img src="/2020/04/12/check/8.png" alt></p>
 <p>一段简单的异或后得yOu0y*</p>
-<h5 id="第五步-1"><a href="#第五步-1" class="headerlink" title="第五步"></a>第五步</h5>
+<h5 id="第五步-1"><a href="#第五步-1" class="headerlink" title="第五步"></a>第五步</h5><p>然后是对key的分析.strtok的返回值的字符串.也就是yOu0y*</p>
+<p>key就是六个字母的异或,为32.</p>
+<p><img src="/2020/04/12/check/C:%5CUsers%5C59634%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1586710331737.png" alt="1586710331737"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import idautils</span><br><span class="line">import idc</span><br><span class="line">start&#x3D;0x405018+256</span><br><span class="line">end&#x3D;0x405018+495</span><br><span class="line">for i in range(end-start+1):</span><br><span class="line">​    op&#x3D;idc.GetOpnd(start+i,0)</span><br><span class="line">​    if(len(op)&lt;2):</span><br><span class="line">​        a&#x3D;int(op)</span><br><span class="line">​    else:</span><br><span class="line">​        s&#x3D;&quot;0x&quot;+op[:-1]</span><br><span class="line">​        a&#x3D;int(s,16)</span><br><span class="line">​    a&#x3D;a^32</span><br><span class="line">​    print(hex(start+i))</span><br><span class="line">​    PatchByte(start+i,a)</span><br></pre></td></tr></table></figure>
+
+
       
       <!-- reward -->
       
