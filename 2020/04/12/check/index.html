@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">624字</span>
+            <span class="post-count">745字</span>
         </span>
     </span>
 
@@ -114,6 +114,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line"></span><br><span class="line">v1,v2,v3,v4,v5,v6,v7,v8,v9,v11&#x3D;Ints(&#39;v1 v2 v3 v4 v5 v6 v7 v8 v9 v11&#39;)</span><br><span class="line"></span><br><span class="line">x&#x3D;Solver()</span><br><span class="line"></span><br><span class="line">x.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 &#x3D;&#x3D; 12613)</span><br><span class="line"></span><br><span class="line">x.add(30 * v11 + -70 * v9 + -122 * v6 + -81 * v7 + -66 * v5 + -115 * v4 + -41 * v3 + -86 * v1 - 15 * v2 - 30 * v8 &#x3D;&#x3D; -54400)</span><br><span class="line"></span><br><span class="line">x.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 * 64) - 120 * v9 &#x3D;&#x3D; -10283)</span><br><span class="line"></span><br><span class="line">x.add( 71 * v6 + (v7 * 128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 &#x3D;&#x3D; 22855)</span><br><span class="line"></span><br><span class="line">x.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 &#x3D;&#x3D; -2944)</span><br><span class="line"></span><br><span class="line">x.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 &#x3D;&#x3D; -2222)</span><br><span class="line"></span><br><span class="line">x.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 &#x3D;&#x3D; -13258)</span><br><span class="line"></span><br><span class="line">x.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 &#x3D;&#x3D; -1559)</span><br><span class="line"></span><br><span class="line">x.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 &#x3D;&#x3D; 6308)</span><br><span class="line"></span><br><span class="line">x.add( 99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 &#x3D;&#x3D; -1697)</span><br><span class="line"></span><br><span class="line">x.check()</span><br><span class="line"></span><br><span class="line">print(x.model())</span><br><span class="line"></span><br><span class="line">flag&#x3D;[70,48,117,82,84,121,95,55,119,64]</span><br><span class="line"></span><br><span class="line">s&#x3D;&quot;&quot;</span><br><span class="line"></span><br><span class="line">for i in flag:</span><br><span class="line"></span><br><span class="line">​    s+&#x3D;chr(i)</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
 
 
+
+<h4 id="SoulLike"><a href="#SoulLike" class="headerlink" title="SoulLike"></a>SoulLike</h4><p>先吐槽一下这道题.经典用代码行数凑难度.</p>
+<p>做题时间不长.</p>
+<p>倒是这个函数的ida反编译的时间用了十几分钟.</p>
+<p><img src="/2020/04/12/check/3.png" alt></p>
+<p>3000行代码.观察一下都一些异或操作穿插一些v1[n]++,以及不同位数的异或操作.</p>
+<p>所以是不能反向直接推的,不过既然是伪代码,直接丢进c++爆破就好了.</p>
+<p>这个代码行数太多,所以exp就不贴了.</p>
+<h4 id><a href="#" class="headerlink" title></a></h4>
       
       <!-- reward -->
       
