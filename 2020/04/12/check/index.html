@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">745字</span>
+            <span class="post-count">1.1k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -93,8 +93,8 @@
 
       
       <p>还是没养成第一时间写wp的习惯.以后尽量把每天学的东西发在blog上.</p>
-<h3 id="ACTF新生赛"><a href="#ACTF新生赛" class="headerlink" title="ACTF新生赛"></a>ACTF新生赛</h3><h4 id="easy-re"><a href="#easy-re" class="headerlink" title="easy_re"></a>easy_re</h4><p>第一步,打开ida.发现里面是pusha.说明有壳,使用工具查壳发现是UPX壳.</p>
-<p>第二步,使用upx命令行脱壳.</p>
+<h2 id="ACTF新生赛"><a href="#ACTF新生赛" class="headerlink" title="ACTF新生赛"></a>ACTF新生赛</h2><h3 id="easy-re"><a href="#easy-re" class="headerlink" title="easy_re"></a>easy_re</h3><h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h5><p>打开ida.发现里面是pusha.说明有壳,使用工具查壳发现是UPX壳.</p>
+<h5 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h5><p>使用upx命令行脱壳.</p>
 <p>第三步,进去main函数发现是个签到题.</p>
 <p><img src="/2020/04/12/check/1.png" alt></p>
 <p>第四步,分析出题思路.将输入的flag当作int数组的下标再和一段数据进行单字节比对.</p>
@@ -105,7 +105,7 @@
 
 
 <h4 id="Universe-final-answer"><a href="#Universe-final-answer" class="headerlink" title="Universe_final_answer"></a>Universe_final_answer</h4><p>第一步,打开ida.定位到关键位置.</p>
-<p>第二步,分析出题思路.解多元一次方程组.</p>
+<p>第二步,分析出题思路为解多元一次方程组.</p>
 <p><img src="/2020/04/12/check/2.png" alt></p>
 <p>sub_860是对输入的一个check函数</p>
 <p>sub_c50是对v5的一个加工,但是可以不用管它,因为check过了后面的改变都可以动态跑出来,既不用静态分析.</p>
@@ -116,13 +116,34 @@
 
 
 <h4 id="SoulLike"><a href="#SoulLike" class="headerlink" title="SoulLike"></a>SoulLike</h4><p>先吐槽一下这道题.经典用代码行数凑难度.</p>
-<p>做题时间不长.</p>
-<p>倒是这个函数的ida反编译的时间用了十几分钟.</p>
+<p>这个函数的ida反编译的时间用了十几分钟.</p>
 <p><img src="/2020/04/12/check/3.png" alt></p>
-<p>3000行代码.观察一下都一些异或操作穿插一些v1[n]++,以及不同位数的异或操作.</p>
-<p>所以是不能反向直接推的,不过既然是伪代码,直接丢进c++爆破就好了.</p>
+<p>第一步,打开ida.定位到关键位置.</p>
+<p>第二步,等待对关键函数的反编译.</p>
+<p>第三步,分析出题思路.采用3000行代码.观察一下都一些异或操作穿插一些v1[n]++,以及不同位数的异或操作.</p>
+<p>第四步,做题思路,由于不是纯异或,所以不能反向直接推的,不过既然是伪代码,直接丢进c++爆破就好了.</p>
 <p>这个代码行数太多,所以exp就不贴了.</p>
-<h4 id><a href="#" class="headerlink" title></a></h4>
+<h4 id="Splendid-MineCraft"><a href="#Splendid-MineCraft" class="headerlink" title="Splendid_MineCraft"></a>Splendid_MineCraft</h4><p>第一步,打开ida,定位到关键位置.</p>
+<p>第二步,放弃^^(然后又回来了,毕竟挨打才能进步)</p>
+<p><img src="/2020/04/12/check/5.png" alt></p>
+<p>根据以往的经验这里应该是把输入的flag分段进行check.除去ACTF{}为壳,还剩下20个字节.猜测为三段6字节.</p>
+<p>第三步,可以看出下面的check部分应该是第一个函数验证完之后,使用一部分生成一个key.然后进行smc.这个key也就是v5其实可以在过了第一个check之后动态跑出来.</p>
+<p>第四步,进入dword_4051D8函数</p>
+<p><img src="/2020/04/12/check/4.png" alt></p>
+<p>之前出题出过一次花指令,所以对0E8h比较敏感,一般是个call.</p>
+<p>所以把这个部分转换成函数来看.</p>
+<p><img src="/2020/04/12/check/6.png" alt></p>
+<p>看到这个Hey!心情就好起来了.果然出题的时候在中途加个鼓励的东西是很好的方式.</p>
+<p>转换成函数之后可以看到</p>
+<p><img src="/2020/04/12/check/7.png" alt></p>
+<p>再通过ida_python代码patch一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import idautils</span><br><span class="line"></span><br><span class="line">import idc</span><br><span class="line"></span><br><span class="line">start&#x3D;0x4051FC</span><br><span class="line"></span><br><span class="line">end&#x3D;0x4051FC+337</span><br><span class="line"></span><br><span class="line">for i in range(end-start+1):</span><br><span class="line"></span><br><span class="line">​    op&#x3D;idc.GetOpnd(start+i,0)</span><br><span class="line"></span><br><span class="line">​    if(len(op)&lt;2):</span><br><span class="line"></span><br><span class="line">​        a&#x3D;int(op)</span><br><span class="line"></span><br><span class="line">​    else:</span><br><span class="line"></span><br><span class="line">​        s&#x3D;&quot;0x&quot;+op[:-1]</span><br><span class="line"></span><br><span class="line">​        a&#x3D;int(s,16)</span><br><span class="line"></span><br><span class="line">​    a&#x3D;a^0x72</span><br><span class="line"></span><br><span class="line">​    PatchByte(start+i,a)</span><br></pre></td></tr></table></figure>
+
+<p>获得</p>
+<p><img src="/2020/04/12/check/8.png" alt></p>
+<p>一段简单的异或后得yOu0y*</p>
+<p>第五步</p>
+
       
       <!-- reward -->
       
