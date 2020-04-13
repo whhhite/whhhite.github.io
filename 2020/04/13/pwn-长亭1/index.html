@@ -95,8 +95,8 @@
       <p>title: Pwn之长亭4月13日<br>date: 2020-04-13 14:49:12<br>tags: pwn</p>
 <p>先摩拜一下长亭科技的杨坤博士,课程和ppt做的太好了.</p>
 <p>本文章只用于自己的学习巩固.图片截于长亭科技ppt,版权归原作者所有.<em>如有侵权</em>请立即与我联系(qq:596349915),我将及时删除处理.</p>
-<h2 id="二进制程序基础原理入门"><a href="#二进制程序基础原理入门" class="headerlink" title="二进制程序基础原理入门"></a>二进制程序基础原理入门</h2><h4 id="C语言是怎么变成可执行程序的"><a href="#C语言是怎么变成可执行程序的" class="headerlink" title="C语言是怎么变成可执行程序的"></a>C语言是怎么变成可执行程序的</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C1.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C2.png" alt></p>
+<h2 id="二进制程序基础原理入门"><a href="#二进制程序基础原理入门" class="headerlink" title="二进制程序基础原理入门"></a>二进制程序基础原理入门</h2><h4 id="C语言是怎么变成可执行程序的"><a href="#C语言是怎么变成可执行程序的" class="headerlink" title="C语言是怎么变成可执行程序的"></a>C语言是怎么变成可执行程序的</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/1.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/2.png" alt></p>
 <p>汇编过程:</p>
 <ul>
 <li>语法分析</li>
@@ -104,7 +104,7 @@
 <li>立即数,标号,地址转为操作数</li>
 <li>生成目标文件</li>
 </ul>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C3.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/3.png" alt></p>
 <p>链接(修复引用):</p>
 <ul>
 <li>将多个目标文件,库代码中的代码,数据等信息合并</li>
@@ -112,85 +112,85 @@
 <li>生成可执行程序</li>
 <li>静态库中的代码和数据会完整拷贝到可执行程序中,而动态库则需要在程序运行时通过动态链接的方式加载.</li>
 </ul>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C4.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C5.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/4.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/5.png" alt></p>
 <p>寄存器:充当一个缓冲的作用,将一些中间结果(CPU需要的结果)暂时存储在寄存器中,这样可以避免一些内存开销.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C6.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C7.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/6.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/7.png" alt></p>
 <p>然后讲了一下基本的寻址模式,这个比较简单,就不总结了.</p>
 <p>接着讲了mov,push,lea等一些基本指令的基本语法.(这些我之后应该会专门写一个汇编的复习总结.)</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C8.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/8.png" alt></p>
 <p>lea这个算术运算其实在re里面还挺常见的.</p>
 <p>我自己对不同语法的汇编其实还蛮不熟练的,是需要提升的一个点.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C9.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/9.png" alt></p>
 <h4 id="调用约定"><a href="#调用约定" class="headerlink" title="调用约定"></a>调用约定</h4><p>峰哥之前让我学汇编的时候提到过调用约定,但是我自己对这个一直不知道有什么作用.</p>
 <p>不过这对逆向特别是二进制漏洞利用应该很有帮助.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C10.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C11.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C12.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/10.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/11.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/12.png" alt></p>
 <p>至于为什么存一个ret开0x10的的空间.是因为一些对齐的需求,根据系统的一些原理.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C58.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C59.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C60.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C61.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C62.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C63.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C64.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C13.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/58.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/59.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/60.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/61.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/62.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/63.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/64.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/13.png" alt></p>
 <p>amd64采用六个寄存器可以提高速度.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C14.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C15.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/14.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/15.png" alt></p>
 <p>栈帧是高地址往低地址排布的,当调用结束的时候往上回退.</p>
-<h4 id="ELF文件格式与动态链接"><a href="#ELF文件格式与动态链接" class="headerlink" title="ELF文件格式与动态链接"></a>ELF文件格式与动态链接</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C16.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C17.png" alt></p>
+<h4 id="ELF文件格式与动态链接"><a href="#ELF文件格式与动态链接" class="headerlink" title="ELF文件格式与动态链接"></a>ELF文件格式与动态链接</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/16.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/17.png" alt></p>
 <p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C18.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C19.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C20.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C21.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C22.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/19.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/20.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/21.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/22.png" alt></p>
 <p>查看Selection Header 截图截漏了我之后补上…</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C23.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C24.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C25.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C26.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/23.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/24.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/25.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/26.png" alt></p>
 <p>延迟绑定的核心是:如果直接绑定的话,可能解析了很多函数,但是运行时只用了一个分支,导致效率很低.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C27.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C28.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/27.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/28.png" alt></p>
 <p>plt+6是因为上一条指令占了六个字节.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C29.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C30.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C31.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C32.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C33.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C34.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C35.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C36.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/29.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/30.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/31.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/32.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/33.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/34.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/35.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/36.png" alt></p>
 <p>没有自己去调 这么听下来还是有点点晕.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C38.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C37.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C39.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C40.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C41.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/38.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/37.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/39.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/40.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/41.png" alt></p>
 <p>第二调用的时候就可以直接执行,并不需要解析</p>
-<h4 id="GOT表劫持"><a href="#GOT表劫持" class="headerlink" title="GOT表劫持"></a>GOT表劫持</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C42.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C43.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C44.png" alt></p>
+<h4 id="GOT表劫持"><a href="#GOT表劫持" class="headerlink" title="GOT表劫持"></a>GOT表劫持</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/42.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/43.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/44.png" alt></p>
 <p>这时候就产生了控制流的劫持.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C45.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C46.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C47.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/45.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/46.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/47.png" alt></p>
 <p>不过这样会对程序性能有一定的损耗.</p>
-<h4 id="二进制漏洞类型与原理"><a href="#二进制漏洞类型与原理" class="headerlink" title="二进制漏洞类型与原理"></a>二进制漏洞类型与原理</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C48.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C49.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C50.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C51.png" alt></p>
+<h4 id="二进制漏洞类型与原理"><a href="#二进制漏洞类型与原理" class="headerlink" title="二进制漏洞类型与原理"></a>二进制漏洞类型与原理</h4><p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/48.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/49.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/50.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/51.png" alt></p>
 <p>堆溢出和栈溢出都是缓冲区溢出.</p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C52.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C53.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C54.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C55.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C56.png" alt></p>
-<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/pwn-%E9%95%BF%E4%BA%AD1%5C57.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/52.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/53.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/54.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/55.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/56.png" alt></p>
+<p><img src="/2020/04/13/pwn-%E9%95%BF%E4%BA%AD1/57.png" alt></p>
 <p>小结: 一开始关于逆向的部分还挺好理解的,到后面涉及pwn的部分就开始有点似懂非懂.一些相关的内容会在我学习一些pwn的知识之后进行补充.</p>
 <h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h4><p>长亭科技4月13日15:00首场培训“<strong>二进制程序基础原理入门</strong>”</p>
 
