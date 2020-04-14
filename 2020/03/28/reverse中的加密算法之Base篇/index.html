@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">6字</span>
+            <span class="post-count">319字</span>
         </span>
     </span>
 
@@ -92,7 +92,24 @@
       
 
       
-      <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><p>编码的思想: </p>
+      <h2 id="Base64"><a href="#Base64" class="headerlink" title="Base64"></a>Base64</h2><h4 id="编码的思想"><a href="#编码的思想" class="headerlink" title="编码的思想:"></a>编码的思想:</h4><p>使用64个可打印的字符来表示二进制数据,将非可视字符可视化.</p>
+<h4 id="编码表"><a href="#编码表" class="headerlink" title="编码表:"></a>编码表:</h4><blockquote>
+<p>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=</p>
+</blockquote>
+<p>在CTF中经常会魔改密码表,所以有一个我常用的exp:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">str1&#x3D;&quot;??&#x3D;&#x3D;&quot;</span><br><span class="line"></span><br><span class="line">string1 &#x3D; &quot;替换表&quot;</span><br><span class="line"></span><br><span class="line">string2 &#x3D; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">print (base64.b64decode(str1.translate(str.maketrans(string1,string2))))</span><br></pre></td></tr></table></figure>
+
+<h2 id="Base58"><a href="#Base58" class="headerlink" title="Base58"></a>Base58</h2><p>这个东西是我心头之恨,也是写这篇文章的动机.上次XCTF公益赛的一道题采用了base58加密,没看出来错失分数.</p>
+<h4 id="编码思想"><a href="#编码思想" class="headerlink" title="编码思想:"></a>编码思想:</h4><p>base58的核心思想也是将非可视字符可视化.只不过base58编码去掉了一些产生歧义的字符.不使用数字 “0”，字母大写”O”，字母大写 “I”，和字母小写 “l”，以及 “+” 和 “/“ 符号.</p>
+<h4 id="编码表-1"><a href="#编码表-1" class="headerlink" title="编码表:"></a>编码表:</h4><blockquote>
+<p>123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz</p>
+</blockquote>
+<p><img src="/2020/03/28/reverse%E4%B8%AD%E7%9A%84%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E4%B9%8BBase%E7%AF%87/1.png" alt></p>
+<h4 id="加密"><a href="#加密" class="headerlink" title="加密:"></a>加密:</h4><p>不同于base64采用的三字符转四字符的方法,58不是2的一个整次幂.所以采用的是辗转相除法实现的58进制转换.因此base58的效率会比base64的效率更低一些.</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p>《BASE_58 编解码原理及代码实现》</p>
+<p><a href="https://blog.csdn.net/u013517122/article/details/83793296?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3" target="_blank" rel="noopener">https://blog.csdn.net/u013517122/article/details/83793296?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3&amp;utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-3</a></p>
+<p>《base58编码原理和实现（golang) 》</p>
+<p><a href="https://blog.csdn.net/idwtwt/article/details/80740474" target="_blank" rel="noopener">https://blog.csdn.net/idwtwt/article/details/80740474</a></p>
 
       
       <!-- reward -->
