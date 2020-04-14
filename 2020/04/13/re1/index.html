@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.7k字</span>
+            <span class="post-count">2k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">6分钟</span>
+            <span class="post-count">7分钟</span>
         </span>
     </span>
 </div>
@@ -173,7 +173,31 @@
 <h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp:"></a>exp:</h4><p>因为就九组数据,就没写exp.直接手动修改推出来了.</p>
 <p>分别是2345 1222 5774 2476 3374 9032 2456 3531 6720</p>
 <p>再拿去md5加密32位大写就是flag了</p>
-<h3 id="Virutal-Tree"><a href="#Virutal-Tree" class="headerlink" title="Virutal Tree"></a>Virutal Tree</h3>
+<h3 id="junk"><a href="#junk" class="headerlink" title="junk"></a>junk</h3><p>junk在re中一般指的是花指令</p>
+<h4 id="第一步-6"><a href="#第一步-6" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动.定位关键位置</p>
+<p><img src="/2020/04/13/re1/18.png" alt></p>
+<h4 id="第二步-6"><a href="#第二步-6" class="headerlink" title="第二步"></a>第二步</h4><p><img src="/2020/04/13/re1/19.png" alt></p>
+<p>一片红,所以需要去花.</p>
+<p>观察的时候发现了一个base64魔改表和一个密文</p>
+<p><img src="/2020/04/13/re1/21.png" alt></p>
+<p><img src="/2020/04/13/re1/20.png" alt></p>
+<p>直接解密是错的.所以还有一些修改的操作</p>
+<h4 id="第三步-5"><a href="#第三步-5" class="headerlink" title="第三步"></a>第三步</h4><p>动态调一下,自动修正了代码.花是中间的0E8h,接着是一个异或3的操作</p>
+<p><img src="/2020/04/13/re1/22.png" alt></p>
+<p>下面这一段花指令会更明显一点.因为一定跳转所以中间插入一个call(0E8h)的机器码,可以影响ida的静态分析.</p>
+<p><img src="/2020/04/13/re1/23.png" alt></p>
+<p>应该是这样子的</p>
+<p><img src="/2020/04/13/re1/24.png" alt></p>
+<p>在ror al 4之后就是加密后的flag与密文比对了</p>
+<p><img src="/2020/04/13/re1/25.png" alt></p>
+<p>整个流程就走完了</p>
+<h4 id="第四步-4"><a href="#第四步-4" class="headerlink" title="第四步"></a>第四步</h4><p>做题思路:先base64换表解码,再ror四位,再异或3就是flag了</p>
+<h4 id="exp-4"><a href="#exp-4" class="headerlink" title="exp:"></a>exp:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">str1&#x3D;&quot;%BUEdVSHlmfWhpZn!oaWZ(aGBsZ@ZpZn!oaWZ(aGBsZ@ZpZn!oYGxnZm%w&#x3D;&#x3D;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">string1 &#x3D; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz)!@#$%^&amp;*(+&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">string2 &#x3D; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">str2&#x3D;base64.b64decode(str1.translate(str.maketrans(string1,string2)))</span><br><span class="line"></span><br><span class="line">flag&#x3D;&quot;&quot;</span><br><span class="line"></span><br><span class="line">for i in range(len(str2)):</span><br><span class="line"></span><br><span class="line">​    s&#x3D;((str2[i] &lt;&lt; 4) &amp; 0xff) | ((str2[i] &gt;&gt; 4) &amp; 0xff)</span><br><span class="line"></span><br><span class="line">​    s^&#x3D;3</span><br><span class="line"></span><br><span class="line">​    flag+&#x3D;chr(s)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Virutal-Tree"><a href="#Virutal-Tree" class="headerlink" title="Virutal Tree"></a>Virutal Tree</h3><p>之前在MRCTF上没下这个题,在buu上下载的还带源码和flag的.</p>
+<h4 id="第一步-7"><a href="#第一步-7" class="headerlink" title="第一步"></a>第一步</h4>
       
       <!-- reward -->
       
