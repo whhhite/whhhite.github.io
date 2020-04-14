@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1字</span>
+            <span class="post-count">1.4k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">5分钟</span>
         </span>
     </span>
 </div>
@@ -78,6 +78,8 @@
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -90,7 +92,85 @@
       
 
       
-      <p>1</p>
+      <p>考虑到比起MRCTF这些题目难度都不算大,所以把两个比赛一起写了.</p>
+<h2 id="BJDCTF"><a href="#BJDCTF" class="headerlink" title="BJDCTF"></a>BJDCTF</h2><p>白给题不写wp^^</p>
+<h3 id="1st-Easy"><a href="#1st-Easy" class="headerlink" title="1st Easy"></a>1st Easy</h3><h4 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动.定位关键位置</p>
+<p><img src="/2020/04/14/re2/2.png" alt></p>
+<p>这是啥?迷惑. 运行的时候也是直接结束了.这种出题方法是不符合出题规则的吧.</p>
+<h4 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h4><p>经典寻宝.找到ques函数.</p>
+<p><img src="/2020/04/14/re2/3.png" alt></p>
+<p>对五组数据进行操作.首先是两个int拼成一个.然后再转化二进制,再根据01输出*阵.</p>
+<h4 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">list1&#x3D;[0x224FC7FFA7E31,0x22A84884A4239,0x3FF8784FF235,0x2318588424233,0x231FC7E4243F1]</span><br><span class="line"></span><br><span class="line">for i in range(len(list1)):</span><br><span class="line"></span><br><span class="line">​    s&#x3D;str(bin(list1[i]))</span><br><span class="line"></span><br><span class="line">​    for j in range(len(s)):</span><br><span class="line"></span><br><span class="line">​        if s[j]&#x3D;&#x3D;&#39;1&#39;:</span><br><span class="line"></span><br><span class="line">​            print(&quot;*&quot;,end&#x3D;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">​        if s[j]&#x3D;&#x3D;&#39;0&#39;:</span><br><span class="line"></span><br><span class="line">​            print(&quot; &quot;,end&#x3D;&quot;&quot;)</span><br><span class="line"></span><br><span class="line">​    print(&quot; &quot;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/04/14/re2/4.png" alt></p>
+<p>槽点太多.纯脑洞题,不符合现在大赛的出题规则.</p>
+<h3 id="1st-BJD-hamburger-competition"><a href="#1st-BJD-hamburger-competition" class="headerlink" title="1st  BJD hamburger competition"></a>1st  BJD hamburger competition</h3><p>Unity3D的题目,还带语音也太抽象了.</p>
+<p><img src="/2020/04/14/re2/5.png" alt></p>
+<h4 id="第一步-1"><a href="#第一步-1" class="headerlink" title="第一步"></a>第一步</h4><p>根据上次Unity3D的经验.要找BJD hamburger competition_Data\Managed路径下的Assembly-CSharp.dll里面的游戏逻辑.</p>
+<h4 id="第二步-1"><a href="#第二步-1" class="headerlink" title="第二步"></a>第二步</h4><p>dnspy启动!进去寻宝. 有个sha1的比对.拿去解密结果是1001.</p>
+<p><img src="/2020/04/14/re2/6.png" alt></p>
+<h4 id="第三步-1"><a href="#第三步-1" class="headerlink" title="第三步"></a>第三步</h4><p>根据它里面的算法去MD5加密1001取前20位就是flag了</p>
+<p><img src="/2020/04/14/re2/7.png" alt></p>
+<p>总的来说,这道题会比MRCTF的unity做的好一点点.</p>
+<h3 id="2nd-8086"><a href="#2nd-8086" class="headerlink" title="2nd 8086"></a>2nd 8086</h3><h4 id="第一步-2"><a href="#第一步-2" class="headerlink" title="第一步"></a>第一步</h4><p>虽然是16位,但是ida启动! 直接看汇编就好了.</p>
+<h4 id="第二步-2"><a href="#第二步-2" class="headerlink" title="第二步"></a>第二步</h4><p>定位关键位置.瞟了一下是个xor.</p>
+<p><img src="/2020/04/14/re2/1.png" alt></p>
+<p>不过这道题有意思的就是上面那个sub_10030有个死循环,不让偷懒hhh</p>
+<h4 id="第三步-2"><a href="#第三步-2" class="headerlink" title="第三步"></a>第三步</h4><p>所以直接写个xor就可以得到flag了</p>
+<h4 id="exp"><a href="#exp" class="headerlink" title="exp:"></a>exp:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s&#x3D;&quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~&#x2F;b;&quot;</span><br><span class="line"></span><br><span class="line">flag&#x3D;&quot;&quot;</span><br><span class="line"></span><br><span class="line">for i in s:</span><br><span class="line"></span><br><span class="line">​    temp&#x3D;ord(i)^0x1F</span><br><span class="line"></span><br><span class="line">​    flag+&#x3D;chr(temp)</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2nd-diff2"><a href="#2nd-diff2" class="headerlink" title="2nd diff2"></a>2nd diff2</h3><p>好像是pwn魔改,以后再说.</p>
+<h2 id="WUSTCTF"><a href="#WUSTCTF" class="headerlink" title="WUSTCTF"></a>WUSTCTF</h2><h3 id="level-1"><a href="#level-1" class="headerlink" title="level 1"></a>level 1</h3><p>分析文件,是output.txt+一个elf的结构.之前遇到这样的题目都蛮难的,涉及很多加密.不过这里就挺简单的</p>
+<h4 id="第一步-3"><a href="#第一步-3" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动,定位关键位置.</p>
+<p><img src="/2020/04/14/re2/8.png" alt></p>
+<h4 id="第二步-3"><a href="#第二步-3" class="headerlink" title="第二步"></a>第二步</h4><p>静态分析: 一个read文件的操作,然后进行按位运算和乘法</p>
+<h4 id="第三步-3"><a href="#第三步-3" class="headerlink" title="第三步:"></a>第三步:</h4><p>解题思路:把output里面的数组进行按位运算和除法就可以了.</p>
+<h4 id="exp-1"><a href="#exp-1" class="headerlink" title="exp:"></a>exp:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">list1&#x3D;[198,232,816,200,1536,300,6144,984,51200,570,92160,1200,565248,756,1474560,800,6291456,1782,65536000]</span><br><span class="line"></span><br><span class="line">flag&#x3D;&quot;&quot;</span><br><span class="line"></span><br><span class="line">for i in range(len(list1)):</span><br><span class="line"></span><br><span class="line">​    if((i+1)&amp;1):</span><br><span class="line"></span><br><span class="line">​        list1[i]&gt;&gt;&#x3D;(i+1)</span><br><span class="line"></span><br><span class="line">​    else:</span><br><span class="line"></span><br><span class="line">​        list1[i]&#x2F;&#x3D;(i+1)</span><br><span class="line"></span><br><span class="line">​    flag+&#x3D;chr(list1[i])</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<h3 id="level-2"><a href="#level-2" class="headerlink" title="level 2"></a>level 2</h3><p>upx壳 用命令行脱壳,main函数明文显示</p>
+<h3 id="level-3"><a href="#level-3" class="headerlink" title="level 3"></a>level 3</h3><h4 id="第一步-4"><a href="#第一步-4" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动.elf文件,定位关键位置</p>
+<h4 id="第二步-4"><a href="#第二步-4" class="headerlink" title="第二步"></a>第二步</h4><p><img src="/2020/04/14/re2/9.png" alt></p>
+<p>直觉就是魔改替换表</p>
+<p>直接进入encode函数交叉引用</p>
+<p><img src="/2020/04/14/re2/10.png" alt></p>
+<p>可以直接动态跑密码表 也可以直接静态分析.我太懒了,直接动态跑了.(虚拟机好像坏了,网络连不上…)</p>
+<p>(顺便一提,虚拟机修好了.方法:<a href="https://www.jianshu.com/p/38b5318efc25" target="_blank" rel="noopener">https://www.jianshu.com/p/38b5318efc25</a></p>
+<p>&lt;&lt;在vm虚拟机上面搭建的ubuntu18.04突然连接不上网络且显示无适配器该怎么办?&gt;&gt;)</p>
+<p>所以改用静态.简单一看就是倒置而已.</p>
+<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp:"></a>exp:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">import string</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">str1&#x3D;&quot;d2G0ZjLwHjS7DmOzZAY0X2lzX3CoZV9zdNOydO9vZl9yZXZlcnGlfD&#x3D;&#x3D;&quot;</span><br><span class="line"></span><br><span class="line">string1 &#x3D; &quot;TSRQPONMLKJIHGFEDCBAUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">string2 &#x3D; &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;&quot;</span><br><span class="line"></span><br><span class="line">print (base64.b64decode(str1.translate(str.maketrans(string1,string2))))</span><br></pre></td></tr></table></figure>
+
+<h3 id="level-4"><a href="#level-4" class="headerlink" title="level 4"></a>level 4</h3><h4 id="第一步-5"><a href="#第一步-5" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动.定位关键位置</p>
+<h4 id="第二步-5"><a href="#第二步-5" class="headerlink" title="第二步"></a>第二步</h4><p>分析:应该是数据结构的内容.看上去像是个树.先动态看一下这里面是个啥.</p>
+<p>unk_601290是字母w.应该是树的根节点.</p>
+<p><img src="/2020/04/14/re2/11.png" alt></p>
+<p>看上去是树的遍历.</p>
+<p><img src="/2020/04/14/re2/12.png" alt></p>
+<p>在init里面可以看到树的生成.不过没看懂是怎么生成的.</p>
+<p><img src="/2020/04/14/re2/13.png" alt></p>
+<p>从其他函数下手,可以看出来type1的递归过程是个中序遍历.同理type2是个后序遍历.</p>
+<p><img src="/2020/04/14/re2/14.png" alt></p>
+<h4 id="第三步-4"><a href="#第三步-4" class="headerlink" title="第三步"></a>第三步</h4><p>所以作者的意思是从中序遍历和后序遍历推出树.然后再得出flag.</p>
+<p>中序:2f0t02T{hcsiI_SwA__r7Ee}</p>
+<p>后序:20f0Th{2tsIS_icArE}e7__w</p>
+<p>推了一下,是这样子的</p>
+<p><img src="/2020/04/14/re2/15.png" alt></p>
+<p>前序遍历就是flag了.</p>
+<h2 id="Cr0ssfun"><a href="#Cr0ssfun" class="headerlink" title="Cr0ssfun"></a>Cr0ssfun</h2><h4 id="第一步-6"><a href="#第一步-6" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动定位关键位置</p>
+<h4 id="第二步-6"><a href="#第二步-6" class="headerlink" title="第二步"></a>第二步</h4><p>进main函数</p>
+<p><img src="/2020/04/14/re2/16.png" alt></p>
+<p>进check函数,发现是寻宝题</p>
+<p><img src="/2020/04/14/re2/17.png" alt></p>
+<p>然后一个个补上去就行了…</p>
+<h3 id="funnyre"><a href="#funnyre" class="headerlink" title="funnyre"></a>funnyre</h3><h4 id="第一步-7"><a href="#第一步-7" class="headerlink" title="第一步"></a>第一步</h4><p>ida启动.找不到关键位置了.函数一片红,看来有反静态.</p>
+<h4 id="第二步-7"><a href="#第二步-7" class="headerlink" title="第二步"></a>第二步</h4><p>随便修了一下基础简单花指令,main函数就正常了.里面一大串都是这样子的</p>
+<p><img src="/2020/04/14/re2/18.png" alt></p>
+<p>思考了一下.每个字节的运算只对自身运算,所以可以跑个对应的密码表出来.然后发现他没有输入.</p>
+<p>所以我就复制到vs上,自己跑了一个对应的密码表.在根据cipher里面的数据,进行替换就是最终的flag了.</p>
+<p>核心思想就是爆破.</p>
+<h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp:"></a>exp:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int cipher[33] &#x3D; &#123;0xD9, 0x2C, 0x27, 0xD6, 0xD8, 0x2A, 0xDA, 0x2D, 0xD7, 0x2C, 0xDC, 0xE1, 0xDB, 0x2C, 0xD9, 0xDD,0x27, 0x2D, 0x2A, 0xDC, 0xDB, 0x2C, 0xE1, 0x29, 0xDA, 0xDA, 0x2C, 0xDA, 0x2A, 0xD9, 0x29, 0x2A&#125;;</span><br><span class="line">char flag[33] &#x3D; &#123; 0 &#125;;</span><br><span class="line">void hello(char ch)</span><br><span class="line">&#123;</span><br><span class="line">	unsigned int v5[38] &#x3D; &#123; 0 &#125;;</span><br><span class="line">	v5[10] &#x3D; ch;</span><br><span class="line">	__int64 v6; &#x2F;&#x2F; rax</span><br><span class="line">	__int64 v7; &#x2F;&#x2F; rax</span><br><span class="line">	__int64 v8; &#x2F;&#x2F; rax</span><br><span class="line">	__int64 v9; &#x2F;&#x2F; rax</span><br><span class="line">&#x2F;&#x2F;复制ida中的代码下来就行了.这里省略</span><br><span class="line">		v358 &#x3D; 0LL;</span><br><span class="line">	do</span><br><span class="line">		v5[v358++ + 5] +&#x3D; 8;</span><br><span class="line">	while (v358 !&#x3D; 32);</span><br><span class="line">	for (int i &#x3D; 0; i &lt; 33; i++)</span><br><span class="line">		if (cipher[i] &#x3D;&#x3D; v5[10] % 256)</span><br><span class="line">			flag[i] &#x3D; ch;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	for (int i &#x3D; 0x20;i &lt; 0x80;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		hello(char(i));</span><br><span class="line">	&#125;</span><br><span class="line">	for (int i &#x3D; 0; i &lt; 33; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; flag[i];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
       <!-- reward -->
