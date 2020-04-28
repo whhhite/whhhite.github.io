@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Pwn之长亭4月17日 |  wh1te&#39;s blog
+    friend |  wh1te&#39;s blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -30,7 +30,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-pwn-长亭2" class="article article-type-post" itemscope
+  <article id="page-" class="article article-type-page" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -38,7 +38,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Pwn之长亭4月17日
+  friend
 </h1>
   
 
@@ -46,43 +46,6 @@
     
 
     
-    <div class="article-meta">
-      <a href="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/" class="article-date">
-  <time datetime="2020-04-17T06:59:21.000Z" itemprop="datePublished">2020-04-17</time>
-</a>
-      
-      
-      
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">175字</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
-        </span>
-    </span>
-</div>
-
-      
-    </div>
-    
-
-    
-    
-    <div class="tocbot"></div>
-
-
-
-
 
     
 
@@ -92,55 +55,7 @@
       
 
       
-      <p>本文章只用于自己的学习巩固.图片截于长亭科技ppt,版权归原作者所有.<em>如有侵权</em>请立即与我联系(qq:596349915),我将及时删除处理.</p>
-<h2 id="从栈溢出开始-教你写Shellcode和ROP链"><a href="#从栈溢出开始-教你写Shellcode和ROP链" class="headerlink" title="从栈溢出开始,教你写Shellcode和ROP链"></a>从栈溢出开始,教你写Shellcode和ROP链</h2><p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/1.png" alt="pic1"></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/2.png" alt="pic2"></p>
-<h3 id="栈溢出漏洞如何利用"><a href="#栈溢出漏洞如何利用" class="headerlink" title="栈溢出漏洞如何利用?"></a>栈溢出漏洞如何利用?</h3><p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/3.png" alt="pic3"></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/4.png" alt="pic4"></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/5.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/6.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/7.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/8.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/9.png" alt></p>
-<p>第一句 xor是清零 第二句是入栈 三四句是连续入栈 双斜杠凑八字节.</p>
-<p>第五句是设置第一个参数 第六七是入栈 第八句是设置第二个参数</p>
-<p>第九句是无符号扩展 第十句是置0 最后一句是系统调用</p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/10.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/11.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/12.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/13.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/14.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/15.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/16.png" alt></p>
-<p>/2wx -&gt; 2word的16进制</p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/17.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/18.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/19.png" alt></p>
-<p>msf</p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/20.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/21.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/22.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/23.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/24.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/25.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/26.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/27.png" alt></p>
-<h3 id="从Return-to-libc到ROP"><a href="#从Return-to-libc到ROP" class="headerlink" title="从Return to libc到ROP"></a>从Return to libc到ROP</h3><p>被体育老师gank了 中间错过了…</p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/41.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/42.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/28.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/29.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/30.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/31.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/32.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/33.png" alt="[]"></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/34.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/35.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/36.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/37.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/38.png" alt></p>
-<p><img src="/2020/04/17/pwn-%E9%95%BF%E4%BA%AD2/39.png" alt></p>
-
+      
       
       <!-- reward -->
       
@@ -163,8 +78,6 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn/" rel="tag">pwn</a></li></ul>
-
 
     </footer>
 
@@ -172,32 +85,11 @@
 
   
   
-  <nav class="article-nav">
-    
-      <a href="/2020/04/20/aim/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            近期学习方向
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/04/14/re2/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Reverse刷题记录 BJDCTF&amp;WUSTCTF</div>
-      </a>
-    
-  </nav>
-
 
   
 
   
 
-  
-  
   
 
 </article>
@@ -321,30 +213,6 @@
 </script>
 
 
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto',
-    onClick: (e) => {
-      $('.toc-link').removeClass('is-active-link');
-      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
-      $(e.target.hash).scrollIntoView();
-      return false;
-    }
-  });
-</script>
 
 
 
