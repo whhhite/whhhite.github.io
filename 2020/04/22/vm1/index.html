@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">308字</span>
+            <span class="post-count">910字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -93,22 +93,62 @@
 
       
       <p>因为现在的CTF比赛中vm已经成为了趋势,只不过我自己能力太差了,每次都没完全打出来,所以准备练一下vm.</p>
-<h2 id="虚拟机保护与逆向"><a href="#虚拟机保护与逆向" class="headerlink" title="虚拟机保护与逆向"></a>虚拟机保护与逆向</h2><h4 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h4><p>虚拟机保护指的是一种解释器,将可执行代码转换为字节码指令系统的代码(opcode),用于保护程序不能被轻易逆向与篡改.</p>
-<h4 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h4><p>将代码转换成opcode,然后在程序执行时,使用解释器解释这些opcode,然后选择对应的函数执行,以此达到运行程序的目的.</p>
+<h2 id="虚拟机保护与逆向"><a href="#虚拟机保护与逆向" class="headerlink" title="虚拟机保护与逆向"></a>虚拟机保护与逆向</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>虚拟机保护指的是一种解释器,将可执行代码转换为字节码指令系统的代码(opcode),用于保护程序不能被轻易逆向与篡改.</p>
+<h3 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h3><p>将代码转换成opcode,然后在程序执行时,使用解释器解释这些opcode,然后选择对应的函数执行,以此达到运行程序的目的.</p>
 <p>图示如下:</p>
-<h5 id="vm-start"><a href="#vm-start" class="headerlink" title="vm_start:"></a>vm_start:</h5><p>vm的入口函数,对环境进行初始化</p>
-<h5 id="vm-dispatcher"><a href="#vm-dispatcher" class="headerlink" title="vm_dispatcher:"></a>vm_dispatcher:</h5><p>vm的解释器,对opcode进行解释,跳转到对应的handle函数流程</p>
-<h5 id="opcode"><a href="#opcode" class="headerlink" title="opcode:"></a>opcode:</h5><p>操作码</p>
+<h4 id="vm-start"><a href="#vm-start" class="headerlink" title="vm_start:"></a>vm_start:</h4><p>vm的入口函数,对环境进行初始化</p>
+<h4 id="vm-dispatcher"><a href="#vm-dispatcher" class="headerlink" title="vm_dispatcher:"></a>vm_dispatcher:</h4><p>vm的解释器,对opcode进行解释,跳转到对应的handle函数流程</p>
+<h4 id="opcode"><a href="#opcode" class="headerlink" title="opcode:"></a>opcode:</h4><p>操作码</p>
 <p><img src="/2020/04/22/vm1/1.png" alt></p>
-<h4 id="出题方式"><a href="#出题方式" class="headerlink" title="出题方式:"></a>出题方式:</h4><ul>
+<h3 id="出题方式"><a href="#出题方式" class="headerlink" title="出题方式:"></a>出题方式:</h3><ul>
 <li>给可执行程序和opcode,逆向解释器,结合opcode.推出flag</li>
 <li>给可执行程序,逆向解释器,构造opcode,读取flag</li>
 </ul>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路:"></a>解题思路:</h4><ol>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路:"></a>解题思路:</h3><ol>
 <li>分析vm_start入口函数,找到opcode位置或者理解输入</li>
 <li>理清虚拟机的结构,包括解释器和handle</li>
 <li>逆向handle,弄清opcode的意义.</li>
 </ol>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题:"></a>例题:</h3><h4 id="2019UNCTF-easyvm"><a href="#2019UNCTF-easyvm" class="headerlink" title="[2019UNCTF] easyvm"></a>[2019UNCTF] easyvm</h4><p>这是一个给可执行程序和opcode,逆向解释器,结合opcode.推出flag的题目.</p>
+<h5 id="第一步"><a href="#第一步" class="headerlink" title="第一步:"></a>第一步:</h5><p>我们先进入main函数分析.</p>
+<p><img src="/2020/04/22/vm1/2.png" alt="main"></p>
+<p>分析可知: 入口函数是函数sub_400C1E,并对一些值进行置0.</p>
+<p><img src="/2020/04/22/vm1/3.png" alt></p>
+<p>解释器是v3指针指向的off_4010A8,是一个经典的switch结构.</p>
+<p><img src="/2020/04/22/vm1/4.png" alt></p>
+<p><img src="/2020/04/22/vm1/5.png" alt></p>
+<p>动态分析可以知道这里的a2就是opcode.</p>
+<p><img src="/2020/04/22/vm1/6.png" alt></p>
+<h5 id="第二步"><a href="#第二步" class="headerlink" title="第二步:"></a>第二步:</h5><p>分析程序流程.</p>
+<p><img src="/2020/04/22/vm1/9.png" alt></p>
+<p><img src="/2020/04/22/vm1/8.png" alt></p>
+<p>这里可以看出四个参数,a1就是地址4010A8,a2是地址602080,a3是密文,a4是我们输入的flag</p>
+<p>a2+9就是地址602089,则opcode=0A9h</p>
+<p>所以运行</p>
+<p><img src="/2020/04/22/vm1/7.png" alt></p>
+<p>同时a1+80就是4010F8</p>
+<p>(但是为什么a1又可以赋值又可以函数调用,这个具体的原理我也没理清,猜测是函数和变量调用方式不同.)</p>
+<p><img src="/2020/04/22/vm1/10.png" alt></p>
+<p>所以0A9h这个opcode就对应sub_400D84这个handle.</p>
+<p><img src="/2020/04/22/vm1/11.png" alt></p>
+<p>这里要注意a1+32是我们的input.而a1+16和a1+18初始化是0.</p>
+<p>然后执行9-6=3,所以是0xA3u的handle.</p>
+<p><img src="/2020/04/22/vm1/12.png" alt></p>
+<p>根据这个思路,我们跳转一圈.</p>
+<p>顺序是0xA9u,0xA3u,0xA5u,0xA6u,0xA4u,0xABu,0xA7u,0xAEu,0xA2u,0xADu,0xAFu结束.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用v1表示a1+16(可以当作一个寄存器)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#用v2表示a1+17(可以当作一个寄存器)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#用i表示a1+18(记录input的下标)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#用input表示a1+32</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#用data表示a1+24</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#顺序是0xA9u,0xA3u,0xA5u,0xA6u,0xA4u,0xABu,0xA7u,0xAEu,0xA2u,0xADu,0xAFu,0xA9....</span></span><br><span class="line"></span><br><span class="line">v1=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">v2=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">i=<span class="number">0</span></span><br><span class="line"></span><br><span class="line">data=[<span class="number">0</span>]*<span class="number">32</span></span><br><span class="line"></span><br><span class="line">input=[<span class="number">0</span>]*<span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A9</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v1=input[i]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A3</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v1-=i</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A5</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v2^=v1</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A6</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v1=<span class="number">0xCD</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A4</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v1^=v2</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AB</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v1==data[i]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A7</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    v2=v1</span><br><span class="line"></span><br><span class="line"><span class="comment">#def AE():</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#   条件判断</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">A2</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">​    i+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#下一位</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AD</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#   长度判断</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AF</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#   判断是否结束,没有就循环.</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="第三步"><a href="#第三步" class="headerlink" title="第三步:"></a>第三步:</h5><p>分析程序流程:取flag的第i位,减去i,异或data[i-1],再异或0xCD,为data[i].</p>
+<p>逆向:取data[i],异或0xCD,异或data[i-1],加上i,等于flag的第i位</p>
+<h5 id="exp"><a href="#exp" class="headerlink" title="exp:"></a>exp:</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">data=[<span class="number">244</span>, <span class="number">10</span>, <span class="number">247</span>, <span class="number">100</span>, <span class="number">153</span>, <span class="number">120</span>, <span class="number">158</span>, <span class="number">125</span>, <span class="number">234</span>, <span class="number">123</span>, <span class="number">158</span>, <span class="number">123</span>, <span class="number">159</span>, <span class="number">126</span>, <span class="number">235</span>, <span class="number">113</span>, <span class="number">232</span>, <span class="number">0</span>, <span class="number">232</span>, <span class="number">7</span>, <span class="number">152</span>, <span class="number">25</span>, <span class="number">244</span>, <span class="number">37</span>, <span class="number">243</span>, <span class="number">33</span>, <span class="number">164</span>, <span class="number">47</span>, <span class="number">244</span>, <span class="number">47</span>, <span class="number">166</span>, <span class="number">124</span>]</span><br><span class="line"></span><br><span class="line">flag=[<span class="number">0</span>]*<span class="number">32</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">31</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line"></span><br><span class="line">​    v=data[i]^<span class="number">0xCD</span></span><br><span class="line"></span><br><span class="line">​    <span class="keyword">if</span>(i&gt;<span class="number">0</span>):</span><br><span class="line"></span><br><span class="line">​        v^=data[i<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">​        v+=i</span><br><span class="line"></span><br><span class="line">​    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">​        v+=i</span><br><span class="line"></span><br><span class="line">​    flag[i]=chr(v)</span><br><span class="line"></span><br><span class="line">s=<span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line"></span><br><span class="line">​    s+=flag[i]</span><br><span class="line"></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+
+<h5 id="另一种解法"><a href="#另一种解法" class="headerlink" title="另一种解法:"></a>另一种解法:</h5><p>直接用angr</p>
+<p><a href="https://docs.angr.io/core-concepts/pathgroups" target="_blank" rel="noopener">angr文档</a></p>
+<p><a href="http://angr.io/api-doc/angr.html#module-angr.sim_manager" target="_blank" rel="noopener">另一个</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"></span><br><span class="line">project=angr.Project(<span class="string">"./UNCTF"</span>,auto_load_libs=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">\<span class="comment">#装载一个文件</span></span><br><span class="line"></span><br><span class="line">state=project.factory.entry_state()</span><br><span class="line"></span><br><span class="line">\<span class="comment">#二进制文件的入口点</span></span><br><span class="line"></span><br><span class="line">simgr=project.factory.simgr(state)</span><br><span class="line"></span><br><span class="line">\<span class="comment">#创建一个模拟管理器</span></span><br><span class="line"></span><br><span class="line">simgr.explore(find=<span class="number">0x400BDA</span>,avoid=<span class="number">0x400B96</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(simgr.found[<span class="number">0</span>].posix.dumps(<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+<p>也是可以直接跑出来的.</p>
+<p><img src="/2020/04/22/vm1/13.png" alt></p>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p>zs0zrc师傅 <a href="https://xz.aliyun.com/t/3851" target="_blank" rel="noopener">https://xz.aliyun.com/t/3851</a></p>
 <p>b1ngo师傅 <a href="https://www.freebuf.com/column/174623.html" target="_blank" rel="noopener">https://www.freebuf.com/column/174623.html</a></p>
 
