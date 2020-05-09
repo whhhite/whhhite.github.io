@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    De1CTF Writeup |  wh1te&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-2020xctf-de1ta" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  De1CTF Writeup
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/05/07/2020xctf-de1ta/" class="article-date">
+  <time datetime="2020-05-07T10:47:55.000Z" itemprop="datePublished">2020-05-07</time>
+</a>
+      
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">956字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>新一年的XCTF联赛开始了.题目还是很有质量的.</p>
+<p>说来惭愧,去年XCTF联赛,自己就没打出来过re题,全靠峰哥顶着.今年峰哥比较忙,只能自己加油了,不能给队友拖后腿(虽然已经拖了..)</p>
+<h3 id="parser"><a href="#parser" class="headerlink" title="parser"></a>parser</h3><blockquote>
+<p>A little parser</p>
+<p>solved:  35 teams</p>
+<p>point: 370pt</p>
+</blockquote>
+<p>这道题是唯一做出来的一道题,因为比较有思路一点.</p>
+<h4 id="知识点"><a href="#知识点" class="headerlink" title="知识点:"></a>知识点:</h4><p><strong>词法分析器</strong>(编译原理),<strong>常见的加密算法</strong>(aes,des,rc4),<strong>g++9.0的endbr64指令</strong></p>
+<h4 id="做题思路"><a href="#做题思路" class="headerlink" title="做题思路:"></a>做题思路:</h4><h4 id="Step1"><a href="#Step1" class="headerlink" title="Step1:"></a>Step1:</h4><p>首先ida64位打开.报了ida找不到PLT表信息的错.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/1.png" alt="1"></p>
+<p>所以进入ida之后看到的都是这样的函数.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/2.png" alt></p>
+<p>根据<a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/re/parser/writeup_zh.md" target="_blank" rel="noopener">De1ta官方wp</a>,是通过<strong>9.0的g++中新特性endbr64指令</strong>,导致IDA得不到plt表的信息.具体的我也没去了解,怎么恢复的话可以请教一下华哥.</p>
+<p>我自己的方法是采用动态的方式(ida的remote linux debugger)去看的.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/3.png" alt></p>
+<p>只要跑一下,就可以看见每个函数里面其实是c++的库函数.</p>
+<h4 id="Step2"><a href="#Step2" class="headerlink" title="Step2:"></a>Step2:</h4><p>于是就可以分析主流程了.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/4.png" alt></p>
+<p>从cin下面开始分析,也就是sub_35F0函数.</p>
+<p>这里的知识点根据官方wp,说是<strong>词法分析器</strong>.因为我没学过编译原理,就截取了百度文库的一些资料.</p>
+<blockquote>
+<p>词法分析（lexical analysis）是计算机科学中将字符序列转换为单词（Token）序列的过程。进行词法分析的程序或者函数叫作词法分析器（Lexical analyzer，简称Lexer），也叫扫描器（Scanner）。词法分析器一般以函数的形式存在，供语法分析器调用。</p>
+</blockquote>
+<p>示意图长这样子:</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/7.png" alt></p>
+<p>然后再看看ida里面的体现</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/5.png" alt></p>
+<p><img src="/2020/05/07/2020xctf-de1ta/6.png" alt></p>
+<p>看上去是差不多的.简单的来说,就是<strong>将字符或者字符序列转化成记号</strong>(token).然后将这些记号提供给语法分析器去一系列操作.</p>
+<h4 id="Step3"><a href="#Step3" class="headerlink" title="Step3:"></a>Step3:</h4><p>因为动态跑了一下,发现格式不对的话,在sub_4D18函数里面才会被check.所以猜测中间的函数对分析flag没什么用(功能应该是使用了c++的vector库把词法分析生成的token存储起来).</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/8.png" alt></p>
+<p>下断点,发现就是这里根据词法分析器生成的序号(token)进行check(?也可以叫语法分析器)</p>
+<p>sub_2360和sub_2460这些都是库函数,所以影响也不大.</p>
+<p>那么最关键的就是sub_4E70这个函数了.</p>
+<h4 id="Step4"><a href="#Step4" class="headerlink" title="Step4:"></a>Step4:</h4><p>跟进去配合动态分析,发现有三种加密算法.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/9.png" alt></p>
+<p><img src="/2020/05/07/2020xctf-de1ta/10.png" alt></p>
+<p><img src="/2020/05/07/2020xctf-de1ta/11.png" alt></p>
+<p>动态调试发现流程就是:</p>
+<ol>
+<li>flag形式为De1CTF{part1+part2_part3+part4_part5}</li>
+<li>首先把每个part拿去RC4,密钥是De1CTF.</li>
+<li>对于+号进行aes-128,对于_号进行des,密钥是De1CTF,padding是PKCS7Padding.</li>
+<li>最后在main函数里面与cipher进行比对.</li>
+</ol>
+<p>逆向的思路就是把cipher拿去aes/des之后拆开再RC4/aes/des.</p>
+<p>这道题因为我自己密码学太烂了(padding的问题),而且python写脚本能力也太烂了,卡了很久.</p>
+<p>最后求助于月亮大哥,月亮大哥给了一个在线工具,我觉得非常好用,建议大家收藏.</p>
+<p><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">https://gchq.github.io/CyberChef/</a></p>
+<p>最后通过慢慢拆,得到下面的流程图与flag.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/12.png" alt></p>
+<h4 id="本题心得"><a href="#本题心得" class="headerlink" title="本题心得:"></a>本题心得:</h4><ol>
+<li>好好学密码学</li>
+<li>好好学python</li>
+</ol>
+<h3 id="FLw"><a href="#FLw" class="headerlink" title="FLw"></a>FLw</h3><blockquote>
+<p>solved:  20 teams</p>
+<p>point: 512pt</p>
+</blockquote>
+<h3 id="小精灵-little-elves"><a href="#小精灵-little-elves" class="headerlink" title="小精灵/little elves"></a>小精灵/little elves</h3><blockquote>
+<p>在那山的那边海的那边有一群小精灵</p>
+<p>On the other side of the mountain, there is a group of little elves</p>
+<p>solved:  17 teams</p>
+<p>point: 555pt</p>
+</blockquote>
+<h3 id="mc-ticktock"><a href="#mc-ticktock" class="headerlink" title="mc_ticktock"></a>mc_ticktock</h3><blockquote>
+<p>时间正在流逝。抓紧时间，深入内部世界。</p>
+<p>Time is ticking. Hurry up. Dig into the inner world.</p>
+<p><a href="http://134.175.230.10/" target="_blank" rel="noopener">http://134.175.230.10/</a> (cn)</p>
+<p>hints:</p>
+<p>Due to the difficulty of meeting precondition, we are now releasing the binary file. <a href="https://drive.google.com/file/d/1hNrGTrp1pjuh4vLaVsxnNogNOshhcnV5/view" target="_blank" rel="noopener">https://drive.google.com/file/d/1hNrGTrp1pjuh4vLaVsxnNogNOshhcnV5/view</a> <a href="https://pan.baidu.com/s/1nfXKjFOwiol0D92dy5u3iA" target="_blank" rel="noopener">https://pan.baidu.com/s/1nfXKjFOwiol0D92dy5u3iA</a> (Pwd:zgv3) <a href="https://share.weiyun.com/5N7qpgK" target="_blank" rel="noopener">https://share.weiyun.com/5N7qpgK</a></p>
+<p>Some Internal IP： mc_logclient - 172.20.10.166 mc_noisemap - 172.20.114.213 mc_realworld - 172.20.39.31</p>
+</blockquote>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a href="https://github.com/De1ta-team/De1CTF2020" target="_blank" rel="noopener">De1ta官方wp</a></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xctf-reverse-wp/" rel="tag">xctf,reverse-wp</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/04/22/vm1/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">虚拟机保护(vm)</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        wh1te
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="wh1te&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">About</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>x</p>
+  <div class="reward-box">
+    
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/share.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['为梦而梦', '', ''],
+      startDelay: 0,
+      typeSpeed: 200,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/js/ayer.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+  </div>
+</body>
+
+</html>
