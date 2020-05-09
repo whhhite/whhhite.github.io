@@ -153,16 +153,21 @@
 <p>point: 512pt</p>
 </blockquote>
 <p>这道题由于ida7.0的32位载入会直接死机,所以直接卡死.</p>
-<p>采用ida7.0的64位+local windows debugger调试32位的程序,但是效果也不理想,故放弃.</p>
+<p>采用ida7.0的64位+local windows debugger调试32位的程序,因为里面有很多花,而且程序看上去比较复杂,这样分析效果不理想,故放弃.</p>
 <p>赛后请教了apeng师傅.apeng师傅说出题的师傅是复现<a href="https://bbs.pediy.com/thread-259064.htm发现的" target="_blank" rel="noopener">https://bbs.pediy.com/thread-259064.htm发现的</a>.</p>
 <p>主要原理是通过下面两处花指令造成</p>
 <p><img src="/2020/05/07/2020xctf-de1ta/13.png" alt></p>
 <p><img src="/2020/05/07/2020xctf-de1ta/14.png" alt></p>
-<p>因为最近比较慢,没时间复现测试,又看了<a href="http://www.qfrost.com/CTF/De1CTF_2020/" target="_blank" rel="noopener">Nepnep的Qfrost师傅的wp</a>.</p>
+<p>又看了<a href="http://www.qfrost.com/CTF/De1CTF_2020/" target="_blank" rel="noopener">Nepnep的Qfrost师傅的wp</a>.</p>
 <p>说是产生了三行垃圾代码实现了IDA的交叉引用死循环.</p>
-<p>(具体原理,我以后找时间复现之后应该会更新)</p>
+<p>(具体原理,我以后找时间复现研究之后应该会更新)</p>
 <h4 id="Step1-1"><a href="#Step1-1" class="headerlink" title="Step1:"></a>Step1:</h4><p>看了很多队的wp,他们都能想到用ida旧版本来做.(tql,学到了</p>
-<p>下了个ida6.8.</p>
+<p>下了个ida6.8,然后发现真的可以打开了.</p>
+<p>进入main函数发现看不出什么,看汇编就一堆花.</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/15.png" alt></p>
+<p>根据<a href="https://bbs.pediy.com/thread-259064.htm" target="_blank" rel="noopener">对抗反汇编 x86</a>这篇文章去花.</p>
+<p>我这里偷了点懒,跑了一下动态,让ida来去花了.</p>
+<p>是个vm…需要点时间来逆.</p>
 <h3 id="小精灵-little-elves"><a href="#小精灵-little-elves" class="headerlink" title="小精灵/little elves"></a>小精灵/little elves</h3><blockquote>
 <p>在那山的那边海的那边有一群小精灵</p>
 <p>On the other side of the mountain, there is a group of little elves</p>
@@ -180,6 +185,7 @@
 </blockquote>
 <p>感觉很复杂,压根没看.</p>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a href="https://github.com/De1ta-team/De1CTF2020" target="_blank" rel="noopener">De1ta官方wp</a></p>
+<p><a href="http://www.qfrost.com/CTF/De1CTF_2020/" target="_blank" rel="noopener">Qfrost师傅的wp</a></p>
 
       
       <!-- reward -->
