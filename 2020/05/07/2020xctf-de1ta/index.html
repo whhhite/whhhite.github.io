@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">956字</span>
+            <span class="post-count">1.2k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3分钟</span>
+            <span class="post-count">4分钟</span>
         </span>
     </span>
 </div>
@@ -152,12 +152,24 @@
 <p>solved:  20 teams</p>
 <p>point: 512pt</p>
 </blockquote>
+<p>这道题由于ida7.0的32位载入会直接死机,所以直接卡死.</p>
+<p>采用ida7.0的64位+local windows debugger调试32位的程序,但是效果也不理想,故放弃.</p>
+<p>赛后请教了apeng师傅.apeng师傅说出题的师傅是复现<a href="https://bbs.pediy.com/thread-259064.htm发现的" target="_blank" rel="noopener">https://bbs.pediy.com/thread-259064.htm发现的</a>.</p>
+<p>主要原理是通过下面两处花指令造成</p>
+<p><img src="/2020/05/07/2020xctf-de1ta/13.png" alt></p>
+<p><img src="/2020/05/07/2020xctf-de1ta/14.png" alt></p>
+<p>因为最近比较慢,没时间复现测试,又看了<a href="http://www.qfrost.com/CTF/De1CTF_2020/" target="_blank" rel="noopener">Nepnep的Qfrost师傅的wp</a>.</p>
+<p>说是产生了三行垃圾代码实现了IDA的交叉引用死循环.</p>
+<p>(具体原理,我以后找时间复现之后应该会更新)</p>
+<h4 id="Step1-1"><a href="#Step1-1" class="headerlink" title="Step1:"></a>Step1:</h4><p>看了很多队的wp,他们都能想到用ida旧版本来做.(tql,学到了</p>
+<p>下了个ida6.8.</p>
 <h3 id="小精灵-little-elves"><a href="#小精灵-little-elves" class="headerlink" title="小精灵/little elves"></a>小精灵/little elves</h3><blockquote>
 <p>在那山的那边海的那边有一群小精灵</p>
 <p>On the other side of the mountain, there is a group of little elves</p>
 <p>solved:  17 teams</p>
 <p>point: 555pt</p>
 </blockquote>
+<p>查了一下,应该是tiny elf.</p>
 <h3 id="mc-ticktock"><a href="#mc-ticktock" class="headerlink" title="mc_ticktock"></a>mc_ticktock</h3><blockquote>
 <p>时间正在流逝。抓紧时间，深入内部世界。</p>
 <p>Time is ticking. Hurry up. Dig into the inner world.</p>
@@ -166,6 +178,7 @@
 <p>Due to the difficulty of meeting precondition, we are now releasing the binary file. <a href="https://drive.google.com/file/d/1hNrGTrp1pjuh4vLaVsxnNogNOshhcnV5/view" target="_blank" rel="noopener">https://drive.google.com/file/d/1hNrGTrp1pjuh4vLaVsxnNogNOshhcnV5/view</a> <a href="https://pan.baidu.com/s/1nfXKjFOwiol0D92dy5u3iA" target="_blank" rel="noopener">https://pan.baidu.com/s/1nfXKjFOwiol0D92dy5u3iA</a> (Pwd:zgv3) <a href="https://share.weiyun.com/5N7qpgK" target="_blank" rel="noopener">https://share.weiyun.com/5N7qpgK</a></p>
 <p>Some Internal IP： mc_logclient - 172.20.10.166 mc_noisemap - 172.20.114.213 mc_realworld - 172.20.39.31</p>
 </blockquote>
+<p>感觉很复杂,压根没看.</p>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a href="https://github.com/De1ta-team/De1CTF2020" target="_blank" rel="noopener">De1ta官方wp</a></p>
 
       
