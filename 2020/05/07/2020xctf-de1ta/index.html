@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k字</span>
+            <span class="post-count">1.1k字</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">4分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -160,30 +160,11 @@
 <p><img src="/2020/05/07/2020xctf-de1ta/14.png" alt></p>
 <p>又看了<a href="http://www.qfrost.com/CTF/De1CTF_2020/" target="_blank" rel="noopener">@Qfrost师傅</a>的wp</p>
 <p>说是产生了三行垃圾代码实现了IDA的交叉引用死循环.</p>
-<p>(具体原理,我以后找时间复现研究之后应该会更新)</p>
 <h4 id="Step1-1"><a href="#Step1-1" class="headerlink" title="Step1:"></a>Step1:</h4><p>看了很多队的wp,他们都能想到用ida旧版本来做.(tql,学到了</p>
 <p>下了个ida6.8,然后发现真的可以打开了.</p>
 <p>进入main函数发现看不出什么,看汇编就一堆花.</p>
 <p><img src="/2020/05/07/2020xctf-de1ta/15.png" alt></p>
 <p>根据<a href="https://bbs.pediy.com/thread-259064.htm" target="_blank" rel="noopener">对抗反汇编 x86</a>这篇文章去花.</p>
-<p>我这里偷了点懒,跑了一下动态,让ida来去花了.</p>
-<p>是个vm…需要点时间来逆.</p>
-<h3 id="小精灵-little-elves"><a href="#小精灵-little-elves" class="headerlink" title="小精灵/little elves"></a>小精灵/little elves</h3><blockquote>
-<p>在那山的那边海的那边有一群小精灵</p>
-<p>On the other side of the mountain, there is a group of little elves</p>
-<p>solved:  17 teams</p>
-<p>point: 555pt</p>
-</blockquote>
-<p>查了一下,应该是tiny elf.</p>
-<h3 id="mc-ticktock"><a href="#mc-ticktock" class="headerlink" title="mc_ticktock"></a>mc_ticktock</h3><blockquote>
-<p>时间正在流逝。抓紧时间，深入内部世界。</p>
-<p>Time is ticking. Hurry up. Dig into the inner world.</p>
-<p><a href="http://134.175.230.10/" target="_blank" rel="noopener">http://134.175.230.10/</a> (cn)</p>
-<p>hints:</p>
-<p>Due to the difficulty of meeting precondition, we are now releasing the binary file. <a href="https://drive.google.com/file/d/1hNrGTrp1pjuh4vLaVsxnNogNOshhcnV5/view" target="_blank" rel="noopener">https://drive.google.com/file/d/1hNrGTrp1pjuh4vLaVsxnNogNOshhcnV5/view</a> <a href="https://pan.baidu.com/s/1nfXKjFOwiol0D92dy5u3iA" target="_blank" rel="noopener">https://pan.baidu.com/s/1nfXKjFOwiol0D92dy5u3iA</a> (Pwd:zgv3) <a href="https://share.weiyun.com/5N7qpgK" target="_blank" rel="noopener">https://share.weiyun.com/5N7qpgK</a></p>
-<p>Some Internal IP： mc_logclient - 172.20.10.166 mc_noisemap - 172.20.114.213 mc_realworld - 172.20.39.31</p>
-</blockquote>
-<p>感觉很复杂,压根没看.</p>
 <h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference:"></a>Reference:</h3><p><a href="https://github.com/De1ta-team/De1CTF2020" target="_blank" rel="noopener">De1ta官方wp</a></p>
 <p><a href="http://www.qfrost.com/CTF/De1CTF_2020/" target="_blank" rel="noopener">Qfrost师傅的wp</a></p>
 
@@ -209,7 +190,7 @@
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xctf-reverse-wp/" rel="tag">xctf,reverse-wp</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/xctf/" rel="tag">xctf</a></li></ul>
 
 
     </footer>
